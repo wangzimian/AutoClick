@@ -18,7 +18,6 @@ import pyperclip
 # print("The wechat work is open")
 # 获取窗口焦点
 # 本机屏幕分辨率为（2880，1800）
-# image_path = r"/Users/kunliu/Desktop/btn.png"
 # coordinate = pyautogui.locateCenterOnScreen(image_path)
 # print(coordinate)
 # screen = pyautogui.size()
