@@ -3,6 +3,42 @@ from openwechatwork import *
 
 import time
 
+def contain_position():
+    start_report_position(visit=(523,309), health_code=(520, 409), place=(522, 508))
+    return True
+
+def detect_box():
+    for i in range(2):
+        box_context = ""
+        box_context = click_and_paste((519, 514), 682, 559)
+        if box_context == "Sorry, please make sure all required fields are filled out correctly!" or box_context == "Please select an option":
+            print("点击失败，再来一次！")
+            moveclick.move_and_click((829, 570))
+            health_infor_filling(visit=(523,309), health_code=(520, 409), place=(522, 508))
+            start_submit_position(328, 232)
+            # 跳出本次循环 并在此进行判断
+            i += 1
+            continue
+        elif box_context == "是否接触过半个月内有疫情重点地区旅居史的人员:Please select an option":
+            print("点击失败，再来一次！")
+            moveclick.move_and_click((829, 570))
+            health_infor_filling(visit=(525,319), health_code=(521, 421), place=(522, 517))
+            start_submit_position(328, 232)
+            i += 1
+            # 跳出本次循环 并在此进行判断
+            continue
+        elif box_context == "打卡成功":
+            print("7. 打卡成功!")
+            # 跳出整个循环
+            break
+        else:
+            print("Error2: 判断打卡中止，测试鼠标已经开始！！！")
+            moveclick.detect_mouse_ordinate()
+    else:
+        print("Error3: 未知错误，测试鼠标已经开始！！！")
+        moveclick.detect_mouse_ordinate()
+    return True
+
 def main():
     # start_time = time.process_time()
     start_time = time.time()
@@ -23,12 +59,12 @@ def main():
         health_system(320, 361)
         print("2. 打开健康信息系统并准备阅览全文...")
         # 2. 打开学生健康申报网页，下滑到底，点击开始上报
-        start_student_lowdown(student_health_report=(850, 610), begin_submit=(712, 807))
+        start_student_lowdown(student_health_report=(850, 610), begin_submit=(712, 780))
         print("3. 学生健康状况申报：已经阅览全国疫情中高风险地区名单")
         # v3.0 版本测试 2021-08-02 v4.0 南京疫情开始 2021-0809
         # 3. 开始上报并下滑到底
         # v2.0 测试新版的开始上报
-        start_report_position(visit=(523,340), health_code=(518, 436), place=(521, 537), vaccine_date=(873, 677))
+        start_report_position(visit=(513,309), health_code=(520, 409), place=(522, 508))
         # 5. 确认是否为绿码
         # health_code_green(502, 398)
         # 6 是否一周内测核酸和接种过疫苗
@@ -44,12 +80,12 @@ def main():
             # 没有测过
             # check_nucleic_acid(565, 582)
         # 8. 承诺方框
-        start_permist_pane(395, 716)
+        start_permist_pane(396, 682)
         # 9. 提交
-        start_submit_position(328, 243)
+        start_submit_position(328, 232)
         # 10. 查看是否提交成功
-        detect_result((518, 530), 638, 556)
-        time.sleep(2)
+        detect_box()
+        time.sleep(1)
         # 关闭窗口
         close_windows(244, 196, 183, 110)
         i += 1
@@ -58,8 +94,9 @@ def main():
 
 if __name__ == "__main__":
     # detect_mouse_ordinate()
-    try:
-        main()
-    except TypeError:
-        print("Error1: 程序中止，测试鼠标已经开始！！！")
-        moveclick.detect_mouse_ordinate()
+    # try:
+    #     main()
+    # except TypeError:
+    #     print("Error1: 程序中止，测试鼠标已经开始！！！")
+    #     moveclick.detect_mouse_ordinate()
+    main()

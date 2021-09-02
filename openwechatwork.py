@@ -57,14 +57,14 @@ def start_student_lowdown(student_health_report, begin_submit):
     time.sleep(0.5)
     return True
 
-def start_report_position(visit, health_code, place, vaccine_date):
+def start_report_position(visit, health_code, place):
     s = "状况申报"
     student_health_situation_report((718, 543), 841, 543, s) # 检测页面是否正确打开
-    fill_origin(province_coordinate=(435, 789), city_coordinate=(590, 785))
+    # fill_origin(province_coordinate=(435, 789), city_coordinate=(590, 785))
     print("4. 已经打开学生健康状况申报下滑到底，准备填写申报信息...")
     pyautogui.vscroll(-200)
     health_infor_filling(visit, health_code, place)
-    fill_vaccine_date(vaccine_date)
+    # fill_vaccine_date(vaccine_date)
     time.sleep(1)
     return True
 
@@ -119,42 +119,14 @@ def start_permist_pane(x, y):
     start_permist_pane = (x, y)
     moveclick.move_and_click(start_permist_pane)
     print("5. 已经承若")
-    time.sleep(1)
+    time.sleep(0.5)
     return True
 
 def start_submit_position(x, y):
     start_submit_position = (x, y)
     moveclick.move_and_click(start_submit_position)
-    time.sleep(3)
+    time.sleep(0.5)
     print("6. 点击提交按钮")
-    return True
-
-def detect_result(start, end_x, end_y):
-    '''
-    start = (544, 472)
-    end_x, end_y = x=638, y=496
-    '''
-    count = 0
-    try:
-        while count < 3:
-            box_context = click_and_paste(start, end_x, end_y)
-            if box_context == "Sorry, please make sure all required fields are filled out correctly!":
-                print("打开失败!，测试鼠标已经开始！！！")
-                moveclick.detect_mouse_ordinate()
-            elif box_context == "打卡成功":
-                print("7. 打卡成功!")
-                break
-            else:
-                time.sleep(1)
-                count += 1
-            if count == 2:
-                print("Error3: 打卡失败，程序中止，测试鼠标已经开始！！！")
-                moveclick.detect_mouse_ordinate()
-    except TypeError:
-        print("Error4: 程序中止，测试鼠标已经开始！！！")
-        close_windows(244, 196, 183, 110)
-        moveclick.detect_mouse_ordinate()
-    time.sleep(1)
     return True
 
 def close_small_win(x, y):
