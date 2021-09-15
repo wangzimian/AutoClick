@@ -56,15 +56,15 @@ def main():
         start_service_position(200, 387)
         print("1. 打开服务大厅")
         # 1.1 打开健康信息系统
-        health_system(320, 361)
+        health_system(871, 608)
         print("2. 打开健康信息系统并准备阅览全文...")
         # 2. 打开学生健康申报网页，下滑到底，点击开始上报
-        start_student_lowdown(student_health_report=(850, 610), begin_submit=(712, 780))
+        start_student_lowdown(student_health_report=(850, 610), begin_submit=(712, 705))
         print("3. 学生健康状况申报：已经阅览全国疫情中高风险地区名单")
         # v3.0 版本测试 2021-08-02 v4.0 南京疫情开始 2021-0809
         # 3. 开始上报并下滑到底
         # v2.0 测试新版的开始上报
-        start_report_position(visit=(513,309), health_code=(520, 409), place=(522, 508))
+        contain_position()
         # 5. 确认是否为绿码
         # health_code_green(502, 398)
         # 6 是否一周内测核酸和接种过疫苗
@@ -94,9 +94,9 @@ def main():
 
 if __name__ == "__main__":
     # detect_mouse_ordinate()
-    # try:
-    #     main()
-    # except TypeError:
-    #     print("Error1: 程序中止，测试鼠标已经开始！！！")
-    #     moveclick.detect_mouse_ordinate()
-    main()
+    try:
+        main()
+    except TypeError:
+        print("Error1: 程序中止，测试鼠标已经开始！！！")
+        moveclick.detect_mouse_ordinate()
+    # main()
