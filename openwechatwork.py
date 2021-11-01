@@ -50,7 +50,7 @@ def health_system(x, y):
 def start_student_lowdown(student_health_report, begin_submit):
     s = "学生健康"
     moveclick.move_and_click(student_health_report)
-    student_health_situation_report((457, 279), 574, 288, s) # 检测页面是否正确打开
+    student_health_situation_report((460, 281), 568, 283, s) # 检测页面是否正确打开
     # pyautogui.click(clicks = 1)
     pyautogui.vscroll(-200)
     moveclick.move_and_click(begin_submit)
