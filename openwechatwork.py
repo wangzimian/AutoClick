@@ -30,7 +30,7 @@ import pyperclip
 # print(x, y)
 # coordinate = pyautogui.position()
 
-def pen_wechat_work(x, y):
+def open_wechat_work(x, y):
     open_wechat_work = (x, y)
     moveclick.move_and_click(open_wechat_work)
     time.sleep(0.5)
@@ -45,21 +45,22 @@ def start_service_position(x, y):
 def health_system(x, y):
     health_system = (x, y)
     moveclick.move_and_click(health_system)
+    time.sleep(0.8)
     return True
 
-def start_student_lowdown(student_health_report, begin_submit):
-    s = "学生健康"
-    moveclick.move_and_click(student_health_report)
-    student_health_situation_report((460, 281), 568, 283, s) # 检测页面是否正确打开
+def start_student_lowdown(begin_submit):
+    time.sleep(0.1)
+    student_health_situation_report(startOrdinate=(460, 281), endOrdinate=(568, 283), situationReprot="学生健康") # 检测页面是否正确打开
     # pyautogui.click(clicks = 1)
     pyautogui.vscroll(-200)
     moveclick.move_and_click(begin_submit)
-    time.sleep(0.5)
+    time.sleep(1)
     return True
 
 def start_report_position(visit, health_code, place):
-    s = "状况申报"
-    student_health_situation_report((718, 543), 841, 543, s) # 检测页面是否正确打开
+    # situationReprot用来检查页面
+    time.sleep(0.1)
+    student_health_situation_report(startOrdinate=(718, 543), endOrdinate=(841, 543), situationReprot = "状况申报") # 检测页面是否正确打开
     # fill_origin(province_coordinate=(435, 789), city_coordinate=(590, 785))
     print("4. 已经打开学生健康状况申报下滑到底，准备填写申报信息...")
     pyautogui.vscroll(-200)
@@ -68,16 +69,24 @@ def start_report_position(visit, health_code, place):
     time.sleep(1)
     return True
 
+def timeWait():
+    # 避免重复改参数
+    return time.sleep(0.1)
+
 def health_infor_filling(visit, health_code, place):
     '''
     visit, health_code, place 都是所在栏坐标位置
+    visit: 是否接触过半个月内有疫情重点地区旅居史的人员
+    health_code: 健康码是否为绿码
+    place: 半个月内是否到过国内疫情重点地区
     '''
     # 是否接触过半个月内有疫情重点地区旅居史的人员
+    timeWait()
     check_visit = moveclick.move_and_click(visit)
-    time.sleep(0.5)
+    timeWait()
     # 健康码是否为绿码
     check_health_code = moveclick.move_and_click(health_code)
-    time.sleep(0.5)
+    timeWait()
     #半个月内是否到过国内疫情重点地区
     check_place = moveclick.move_and_click(place)
     return True
@@ -119,14 +128,13 @@ def start_permist_pane(x, y):
     start_permist_pane = (x, y)
     moveclick.move_and_click(start_permist_pane)
     print("5. 已经承若")
-    time.sleep(0.5)
+    time.sleep(0.3)
     return True
 
 def start_submit_position(x, y):
     start_submit_position = (x, y)
     moveclick.move_and_click(start_submit_position)
-    time.sleep(0.5)
-    print("6. 点击提交按钮")
+    time.sleep(0.3)
     return True
 
 def close_small_win(x, y):
@@ -149,33 +157,34 @@ def get_curr_date():
     return int(time.strftime("%Y%m%d"))
 
 
-def click_and_paste(start, end_x, end_y):
+def click_and_paste(startOrdinate, endOrdinate):
     """
     start: the corrdinate of begining copy
     end_x, end_y: the corrdinate of ending copy
     """
-    moveclick.move_and_click(start)
+    moveclick.move_and_click(startOrdinate)
+    # endOrdinate = (end_x, end_y)
     # 按下鼠标左键用1.0秒拖拽到(x,y) 选择文字
-    pyautogui.dragTo(x=end_x, y=end_y, duration=1.0, button='left')
-    pyautogui.hotkey('command', 'c', interval=0.5)
+    pyautogui.dragTo(x=endOrdinate[0], y=endOrdinate[1], duration=0.2, button='left')
+    pyautogui.hotkey('command', 'c', interval=0.05)
     box_context = pyperclip.paste()
     return box_context
 
 # 检测是否进入“学生健康状况申报”页面
-def student_health_situation_report(start, end_x, end_y, s):
+def student_health_situation_report(startOrdinate, endOrdinate, situationReprot):
     '''
     start: 开始复制的坐标位置 (end_x, end_y) 结束复制的位置
-    s 复制的内容
+    situationReprot 复制的内容
     '''
     try:
         for i in range(3):
-            box_context = click_and_paste(start, end_x, end_y)
-            if box_context == s:
+            box_context = click_and_paste(startOrdinate, endOrdinate)
+            if box_context == situationReprot:
                 print("===成功打开申报页面===")
                 break
             else:
                 print("网速太慢，请耐心等待第%d次"%(i+1))
-                time.sleep(3)
+                time.sleep(2)
         else:
             print("网络未连接，请连接网络后再打卡！")
             close_windows(244, 196, 183, 110)
@@ -184,7 +193,6 @@ def student_health_situation_report(start, end_x, end_y, s):
             print("运行中止: 关闭窗口")
             close_windows(244, 196, 183, 110)
             exit(0)
-            time.sleep(1)
     return 0
 
 def close_windows(x_big, y_big, x_small, y_small):

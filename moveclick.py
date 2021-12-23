@@ -13,9 +13,9 @@ def detect_mouse_ordinate():
 # 移动鼠标并点击
 def move_and_click(position):
     pyautogui.moveTo(position)
-    # time.sleep(1)
+    time.sleep(0.25)
     pyautogui.click(clicks = 1)
-    time.sleep(1)
+    time.sleep(0.25)
     return True
 # 
 # detect_mouse_ordinate()
