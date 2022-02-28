@@ -59,14 +59,17 @@ def start_student_lowdown(begin_submit):
 
 def start_report_position(visit, health_code, place):
     # situationReprot用来检查页面
-    time.sleep(0.1)
+    time.sleep(0.5)
     student_health_situation_report(startOrdinate=(718, 543), endOrdinate=(841, 543), situationReprot = "状况申报") # 检测页面是否正确打开
     # fill_origin(province_coordinate=(435, 789), city_coordinate=(590, 785))
     print("4. 已经打开学生健康状况申报下滑到底，准备填写申报信息...")
+    # 添加当日是否外出(x=522, y=935)
+    # 2022-2-28 已经不需要每天都点否 固隐藏
+    # moveclick.move_and_click((522, 935)) 
     pyautogui.vscroll(-200)
     health_infor_filling(visit, health_code, place)
     # fill_vaccine_date(vaccine_date)
-    time.sleep(1)
+    # time.sleep(1)
     return True
 
 def timeWait():
@@ -81,12 +84,12 @@ def health_infor_filling(visit, health_code, place):
     place: 半个月内是否到过国内疫情重点地区
     '''
     # 是否接触过半个月内有疫情重点地区旅居史的人员
-    timeWait()
+    # timeWait()
     check_visit = moveclick.move_and_click(visit)
-    timeWait()
+    # timeWait()
     # 健康码是否为绿码
     check_health_code = moveclick.move_and_click(health_code)
-    timeWait()
+    # timeWait()
     #半个月内是否到过国内疫情重点地区
     check_place = moveclick.move_and_click(place)
     return True
@@ -134,7 +137,7 @@ def start_permist_pane(x, y):
 def start_submit_position(x, y):
     start_submit_position = (x, y)
     moveclick.move_and_click(start_submit_position)
-    time.sleep(0.3)
+    time.sleep(0.1)
     return True
 
 def close_small_win(x, y):
@@ -165,7 +168,7 @@ def click_and_paste(startOrdinate, endOrdinate):
     moveclick.move_and_click(startOrdinate)
     # endOrdinate = (end_x, end_y)
     # 按下鼠标左键用1.0秒拖拽到(x,y) 选择文字
-    pyautogui.dragTo(x=endOrdinate[0], y=endOrdinate[1], duration=0.2, button='left')
+    pyautogui.dragTo(x=endOrdinate[0], y=endOrdinate[1], duration=0.1, button='left')
     pyautogui.hotkey('command', 'c', interval=0.05)
     box_context = pyperclip.paste()
     return box_context
@@ -184,20 +187,20 @@ def student_health_situation_report(startOrdinate, endOrdinate, situationReprot)
                 break
             else:
                 print("网速太慢，请耐心等待第%d次"%(i+1))
-                time.sleep(2)
+                time.sleep(5)
         else:
             print("网络未连接，请连接网络后再打卡！")
-            close_windows(244, 196, 183, 110)
+            close_windows()
             exit(0)
     except TypeError:
             print("运行中止: 关闭窗口")
-            close_windows(244, 196, 183, 110)
+            close_windows()
             exit(0)
     return 0
 
-def close_windows(x_big, y_big, x_small, y_small):
+def close_windows():
     # 8. 关闭小窗口
-    close_small_win(x_big, y_big)
+    close_small_win(244, 196)
     # 9. 关闭大窗口
-    close_big_win(x_small, y_small)
+    close_big_win(183, 110)
     return 0

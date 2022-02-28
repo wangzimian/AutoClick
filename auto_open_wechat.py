@@ -36,8 +36,12 @@ def detect_box():
             # 跳出整个循环
             break
         else:
-            print("Error2: 判断打卡中止，测试鼠标已经开始！")
-            return moveclick.detect_mouse_ordinate()
+            print("未检测是否打卡成功")
+            box_context = click_and_paste(startOrdinate=(524, 563), endOrdinate=(666, 623))
+            i += 1
+        # else:
+            # print("Error2: 判断打卡中止，测试鼠标已经开始！")
+            # return moveclick.detect_mouse_ordinate()
     else:
         print("Error3: 已经三次点击未成功，请切换手动点击！")
         exit(0)
@@ -95,10 +99,10 @@ def main():
         start_submit_position(328, 232)
         print("6. 点击提交按钮")
         # 10. 查看是否提交成功
+        time.sleep(0.5)
         detect_box()
-        time.sleep(1)
         # 关闭窗口
-        close_windows(244, 196, 184, 111)
+        close_windows()
         i += 1
     end_time =time.time()
     print("运行时间：%d s"%(end_time - start_time))
