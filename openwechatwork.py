@@ -54,7 +54,7 @@ def start_student_lowdown(begin_submit):
     # pyautogui.click(clicks = 1)
     pyautogui.vscroll(-200)
     moveclick.move_and_click(begin_submit)
-    time.sleep(1)
+    time.sleep(0.5)
     return True
 
 def start_report_position(visit, health_code, place):
@@ -66,7 +66,12 @@ def start_report_position(visit, health_code, place):
     # 添加当日是否外出(x=522, y=935)
     # 2022-2-28 已经不需要每天都点否 固隐藏
     # moveclick.move_and_click((522, 935)) 
-    pyautogui.vscroll(-200)
+    # 2022-3-26 又一次增加是否外出
+    pyautogui.vscroll(-10)
+    time.sleep(0.5)
+    moveclick.move_and_click(position=(546, 598))
+    time.sleep(0.1)
+    pyautogui.vscroll(-80)
     health_infor_filling(visit, health_code, place)
     # fill_vaccine_date(vaccine_date)
     # time.sleep(1)

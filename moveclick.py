@@ -12,6 +12,9 @@ def detect_mouse_ordinate():
 
 # 移动鼠标并点击
 def move_and_click(position):
+    '''
+    position表示一个位置形式是（a,b)
+    '''
     pyautogui.moveTo(position)
     time.sleep(0.25)
     pyautogui.click(clicks = 1)
