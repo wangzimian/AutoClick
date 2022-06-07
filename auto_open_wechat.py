@@ -51,10 +51,11 @@ def clockin(times):
     ''' 打开企业微信，打开服务界面，打开信息系统，打开疫情风险提醒 '''
     print("=======今天打开第%d次！======"%(times + 1))
     # 0. 打开企业微信
-    open_wechat_work(1286, 10)
+    open_wechat_work(1285, 9)
     print("0. 软件已经打开")
     # 1. 打开服务大厅界面
-    start_service_position(200, 387)
+    # start_service_position(200, 387)
+    start_service_position(309, 252)
     print("1. 打开服务大厅")
     # 1.1 打开健康信息系统
     health_system(871, 608)

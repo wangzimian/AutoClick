@@ -67,10 +67,11 @@ def start_report_position(visit, health_code, place):
     # 2022-2-28 已经不需要每天都点否 固隐藏
     # moveclick.move_and_click((522, 935)) 
     # 2022-3-26 又一次增加是否外出
-    pyautogui.vscroll(-10)
-    time.sleep(0.5)
-    moveclick.move_and_click(position=(546, 598))
-    time.sleep(0.1)
+    # pyautogui.vscroll(-10)
+    time.sleep(0.3)
+    # 点击是否外出
+    moveclick.move_and_click(position=(522, 932))
+    time.sleep(0.3)
     pyautogui.vscroll(-80)
     health_infor_filling(visit, health_code, place)
     # fill_vaccine_date(vaccine_date)
@@ -207,5 +208,5 @@ def close_windows():
     # 8. 关闭小窗口
     close_small_win(244, 196)
     # 9. 关闭大窗口
-    close_big_win(183, 110)
+    close_big_win(182, 112)
     return 0
